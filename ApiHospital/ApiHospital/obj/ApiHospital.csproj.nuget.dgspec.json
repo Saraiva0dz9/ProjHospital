@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ApiHospital\\ApiHospital\\ApiHospital.csproj": {}
+    "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ProjHospital\\ApiHospital\\ApiHospital\\ApiHospital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ApiHospital\\ApiHospital\\ApiHospital.csproj": {
+    "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ProjHospital\\ApiHospital\\ApiHospital\\ApiHospital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ApiHospital\\ApiHospital\\ApiHospital.csproj",
+        "projectUniqueName": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ProjHospital\\ApiHospital\\ApiHospital\\ApiHospital.csproj",
         "projectName": "ApiHospital",
-        "projectPath": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ApiHospital\\ApiHospital\\ApiHospital.csproj",
+        "projectPath": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ProjHospital\\ApiHospital\\ApiHospital\\ApiHospital.csproj",
         "packagesPath": "C:\\Users\\leoga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ApiHospital\\ApiHospital\\obj\\",
+        "outputPath": "C:\\Users\\leoga\\OneDrive\\Área de Trabalho\\WORK\\Projetos\\ProjHospital\\ApiHospital\\ApiHospital\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\leoga\\AppData\\Roaming\\NuGet\\NuGet.Config",
