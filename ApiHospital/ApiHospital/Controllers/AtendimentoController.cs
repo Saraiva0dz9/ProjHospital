@@ -22,7 +22,7 @@ public class AtendimentoController : Controller
     {
         try
         {
-            var atendimentos = _context.Atendimento.ToList();
+            var atendimentos = _context.Atendimentos.ToList();
         
             return atendimentos;
         }
@@ -30,23 +30,6 @@ public class AtendimentoController : Controller
         {
             _logger.LogError(ex, "AtendimentoController.GetAtendimentos");
             throw;
-        }
-    }
-    
-    [HttpPost("InsereAtendimento")] 
-    private IActionResult InsereAtendimento(Atendimento atendimento)
-    {
-        try
-        {
-            _context.Atendimento.Add(atendimento);
-            _context.SaveChanges();
-
-            return Ok(atendimento);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "AtendimentoController.InsereAtendimento");
-            return StatusCode(500, "Erro ao inserir atendimento.");
         }
     }
 }

@@ -5,5 +5,5 @@ namespace ApiHospital.Context;
 
 public class PacienteContext(DbContextOptions<PacienteContext> options) : DbContext(options)
 {
-    public DbSet<Paciente> Paciente { get; set; }
+    public DbSet<Paciente> Pacientes { get; set; }
 }
