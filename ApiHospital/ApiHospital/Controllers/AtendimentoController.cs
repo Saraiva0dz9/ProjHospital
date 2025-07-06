@@ -1,5 +1,6 @@
 using ApiHospital.Context;
 using ApiHospital.Models;
+using ApiHospital.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiHospital.Controllers;
@@ -18,7 +19,7 @@ public class AtendimentoController : Controller
     }
     
     [HttpGet("GetAtendimentos")]
-    private List<Atendimento> GetAtendimentos()
+    public List<Atendimento> GetAtendimentos()
     {
         try
         {

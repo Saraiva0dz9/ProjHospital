@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiHospital.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class TriagemController : Controller
 {
     private readonly TriagemContext  _triagemContext;
@@ -16,7 +18,7 @@ public class TriagemController : Controller
     }
     
     [HttpGet("GetTriagems")]
-    private List<Triagem> GetTriagems()
+    public List<Triagem> GetTriagems()
     {
         try
         {
@@ -32,7 +34,7 @@ public class TriagemController : Controller
     }
     
     [HttpPost("InsereTriagem")]
-    private IActionResult InsereTriagem(Triagem triagem)
+    public IActionResult InsereTriagem(Triagem triagem)
     {
         try
         {
