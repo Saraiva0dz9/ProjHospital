@@ -12,27 +12,37 @@ public class PacienteController : Controller
     private readonly PacienteContext _context;
     private readonly AtendimentoService _atendimentoService;
     private readonly ILogger<PacienteController> _logger;
+    private readonly CryptoService _cryptoService;
     
-    public PacienteController(PacienteContext context, ILogger<PacienteController> logger, AtendimentoService atendimentoService)
+    public PacienteController(PacienteContext context, ILogger<PacienteController> logger,
+        AtendimentoService atendimentoService, CryptoService cryptoService)
     {
         this._context = context;
         this._atendimentoService = atendimentoService;
         this._logger = logger;
+        this._cryptoService = cryptoService;
     }
     
     [HttpGet("GetPacientes")]
-    public List<Paciente> GetPacientes()
+    public ActionResult<IEnumerable<Paciente>> GetPacientes()
     {
         try
         {
-            var pacientes =  _context.Pacientes.ToList();
-        
-            return pacientes;
+            var pacientes = _context.Pacientes.ToList();
+            
+            // Descriptografa os dados sensíveis antes de retornar
+            foreach (var paciente in pacientes)
+            {
+                paciente.Telefone = _cryptoService.Decrypt(paciente.Telefone);
+                paciente.Email = _cryptoService.Decrypt(paciente.Email);
+            }
+            
+            return Ok(pacientes);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "PacienteController.GetPacientes");
-            throw;
+            return StatusCode(500, "Erro ao buscar pacientes.");
         }
     }
     
@@ -41,6 +51,10 @@ public class PacienteController : Controller
     {
         try
         {
+            // Criptografa os dados sensíveis antes de salvar
+            paciente.Telefone = _cryptoService.Encrypt(paciente.Telefone);
+            paciente.Email = _cryptoService.Encrypt(paciente.Email);
+            
             _context.Pacientes.Add(paciente);
             _context.SaveChanges();
             

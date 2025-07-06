@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<AtendimentoService>();
+builder.Services.AddScoped<CryptoService>();
 
 builder.Services.AddDbContext<PacienteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
