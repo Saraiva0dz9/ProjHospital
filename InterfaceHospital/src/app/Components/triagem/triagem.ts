@@ -44,9 +44,13 @@ export class Triagem implements OnInit {
         this.http.get<any[]>(API_URL)
       );
 
+      const atendimentosNaoFinalizados = atendimentos.filter(item => 
+        item.status !== 'Finalizado' && item.status !== 'Em Triagem'
+      );
+
       // Processa os atendimentos em paralelo
       const atendimentosFormatados = await Promise.all(
-        atendimentos.map(async (item) => {
+        atendimentosNaoFinalizados.map(async (item) => {
           let nomePaciente = 'Desconhecido';
           
           if (item.pacienteId) {
@@ -87,6 +91,10 @@ export class Triagem implements OnInit {
     this.dialog.open(ModalTriagem, {
       width: '600px',
       data: atendimento 
+    }).afterClosed().subscribe(result => {
+      if (result?.success) {
+        this.carregarAtendimentos();
+      }
     });
   }  
 }
