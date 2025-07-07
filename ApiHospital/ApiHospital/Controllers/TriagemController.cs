@@ -49,4 +49,23 @@ public class TriagemController : Controller
             return StatusCode(500, "Erro ao inserir triagem.");
         }
     }
+    
+    [HttpGet("GetTriagemByIdAtendimento/{id}")]
+    public ActionResult<Triagem> GetTriagemByIdAtendimento(int id)
+    {
+        try
+        {
+            var triagem = _triagemContext.Triagem.FirstOrDefault(t => t.AtendimentoId == id);
+            if (triagem == null)
+            {
+                return NotFound("Triagem não encontrada.");
+            }
+            return Ok(triagem);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "TriagemController.GetTriagemByIdAtendimento");
+            return StatusCode(500, "Erro ao buscar triagem por ID de atendimento.");
+        }
+    }
 }
