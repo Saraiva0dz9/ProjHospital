@@ -50,7 +50,7 @@ public class TriagemController : Controller
         }
     }
     
-    [HttpGet("GetTriagemByIdAtendimento/{id}")]
+    [HttpGet("GetTriagemByAtendimentoId/{id}")]
     public ActionResult<Triagem> GetTriagemByIdAtendimento(int id)
     {
         try
