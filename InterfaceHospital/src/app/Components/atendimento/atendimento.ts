@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, lastValueFrom, of } from 'rxjs';
+import { ModalAtendimento } from '../../Modals/modal-atendimento/modal-atendimento';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Atendimentos {
   id: number;
@@ -15,6 +17,8 @@ interface Atendimentos {
   paciente: string;  
   pressaoArterial: string;  
   especialidade: string;
+  sintomas: string;
+  peso: number;
 }
 
 @Component({
@@ -40,7 +44,7 @@ export class Atendimento implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {}
+  constructor(private http: HttpClient, public dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.carregarAtendimentos();
@@ -56,9 +60,14 @@ export class Atendimento implements OnInit {
         this.http.get<any[]>(API_URL)
       );
 
+      // Filtra apenas atendimentos não finalizados
+      const atendimentosNaoFinalizados = atendimentos.filter(item => 
+        item.status !== 'Finalizado'
+      );
+
       // Processa os atendimentos em paralelo
       const atendimentosFormatados = await Promise.all(
-        atendimentos.map(async (item) => {
+        atendimentosNaoFinalizados.map(async (item) => {
           let nomePaciente = 'Desconhecido';
           
           if (item.pacienteId) {
@@ -95,10 +104,14 @@ export class Atendimento implements OnInit {
         // Se encontrou a triagem
         item.pressaoArterial = triagem.body.pressaoArterial || 'N/A';
         item.especialidade = triagem.body.especialidadeId || 'N/A';
+        item.sintomas = triagem.body.sintomas || 'N/A';
+        item.peso = triagem.body.peso || 0;
       } else {
         // Caso 404 ou outros erros
         item.pressaoArterial = 'N/A';
         item.especialidade = 'N/A';
+        item.sintomas = 'N/A';
+        item.peso = 0;
       }
 
           return {
@@ -109,7 +122,9 @@ export class Atendimento implements OnInit {
             status: item.status,
             paciente: nomePaciente,
             pressaoArterial: item.pressaoArterial || 'N/A',
-            especialidade: this.especialidades.find(e => e.id === item.especialidade)?.nome || 'N/A'
+            especialidade: this.especialidades.find(e => e.id === item.especialidade)?.nome || 'N/A',
+            sintomas: item.sintomas || 'N/A',
+            peso: item.peso || 0
           } as Atendimentos;
         })
       );
@@ -122,4 +137,26 @@ export class Atendimento implements OnInit {
       console.error('Erro ao carregar atendimentos:', error);
     }
   } 
+
+  abrirModalAtendimento(atendimento: Atendimentos): void {
+    // Verifica se o paciente não passou pela triagem
+    if (atendimento.pressaoArterial === 'N/A' || 
+        atendimento.especialidade === 'N/A' ||
+        atendimento.sintomas === 'N/A') {
+      this.snackBar.open('Paciente ainda não passou pela triagem!', 'Fechar', {
+        duration: 5000,
+        panelClass: ['warning-snackbar']
+      });
+      return; // Não abre o modal
+    }
+
+    this.dialog.open(ModalAtendimento, {
+      width: '600px',
+      data: atendimento
+    }).afterClosed().subscribe(result => {
+      if (result?.success) {
+        this.carregarAtendimentos();
+      }
+    });
+  }
 }

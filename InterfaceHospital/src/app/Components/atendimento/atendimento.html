@@ -42,8 +42,7 @@
 
     <!-- Header e Rows -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
-    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="abrirModal(row)"></tr>     -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="abrirModalAtendimento(row)"></tr>        
 
   </table>
 

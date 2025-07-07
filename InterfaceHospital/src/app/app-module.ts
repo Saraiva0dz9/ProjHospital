@@ -25,6 +25,7 @@ import { Triagem } from './Components/triagem/triagem';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ModalTriagem } from './Modals/modal-triagem/modal-triagem';
 import { Atendimento } from './Components/atendimento/atendimento';
+import { ModalAtendimento } from './Modals/modal-atendimento/modal-atendimento';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { Atendimento } from './Components/atendimento/atendimento';
     Cadastro,
     Triagem,
     ModalTriagem,
-    Atendimento,    
+    Atendimento,
+    ModalAtendimento,    
   ],
   imports: [
     BrowserModule,
