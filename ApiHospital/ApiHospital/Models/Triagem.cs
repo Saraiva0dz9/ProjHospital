@@ -7,4 +7,6 @@ public class Triagem
     public string Sintomas { get; set; } = string.Empty;
     public string PressaoArterial { get; set; } = string.Empty;
     public decimal Peso { get; set; } = 0.0m;
+    public decimal Altura { get; set; } = 0.0m;
+    public int EspecialidadeId { get; set; } = 0;
 }
