@@ -12,6 +12,7 @@ mat-sidenav {
   color: white;  
   padding: 16px;
   text-align: center;
+  border-radius: 0px;
 }
 
 .content {
@@ -26,7 +27,7 @@ mat-sidenav {
 }
 
 mat-sidenav-container {
-  height: calc(100vh - 65px);
+  height: calc(100vh - 64px);
 }
 
 .menu-button {

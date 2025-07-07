@@ -30,17 +30,17 @@
     <mat-divider></mat-divider>
 
     <div class="menu-container">
-        <button mat-button class="menu-button" routerLink="/home">
+        <button mat-button class="menu-button" routerLink="/home" (click)="sidenav.toggle()">
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </button> 
     
-        <button mat-button class="menu-button" routerLink="/cadastro">
+        <button mat-button class="menu-button" routerLink="/cadastro" (click)="sidenav.toggle()">
           <mat-icon>person</mat-icon>
           <span>Cadastro de pacientes</span>
         </button>
 
-        <button mat-button class="menu-button" routerLink="/atendimentos">
+        <button mat-button class="menu-button" routerLink="/atendimentos" (click)="sidenav.toggle()">
           <mat-icon>event</mat-icon>
           <span>Atendimentos</span>
         </button>   

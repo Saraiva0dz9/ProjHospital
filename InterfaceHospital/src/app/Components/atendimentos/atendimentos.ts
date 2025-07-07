@@ -36,65 +36,59 @@ export class Atendimentos implements OnInit {
   }
 
   async carregarAtendimentos() {
-  const API_URL = 'http://localhost:5059/api/Atendimento/GetAtendimentos';
-  const API_URL_PACIENTE = 'http://localhost:5059/api/Paciente/GetNomeById';
+    const API_URL = 'http://localhost:5059/api/Atendimento/GetAtendimentos';
+    const API_URL_PACIENTE = 'http://localhost:5059/api/Paciente/GetNomeById';
 
-  try {
-    const atendimentos = await lastValueFrom(
-      this.http.get<any[]>(API_URL)
-    );
+    try {
+      const atendimentos = await lastValueFrom(
+        this.http.get<any[]>(API_URL)
+      );
 
-    // Processa os atendimentos em paralelo
-    const atendimentosFormatados = await Promise.all(
-      atendimentos.map(async (item) => {
-        let nomePaciente = 'Desconhecido';
-        
-        if (item.pacienteId) {
-          try {
-            // Usamos responseType 'text' para evitar o parse automático como JSON
-            nomePaciente = await lastValueFrom(
-              this.http.get(`${API_URL_PACIENTE}/${item.pacienteId}`, { 
-                responseType: 'text' 
-              })
-            );
-          } catch (error) {
-            console.error(`Erro ao buscar paciente ${item.pacienteId}:`, error);
+      // Processa os atendimentos em paralelo
+      const atendimentosFormatados = await Promise.all(
+        atendimentos.map(async (item) => {
+          let nomePaciente = 'Desconhecido';
+          
+          if (item.pacienteId) {
+            try {
+              // Usamos responseType 'text' para evitar o parse automático como JSON
+              nomePaciente = await lastValueFrom(
+                this.http.get(`${API_URL_PACIENTE}/${item.pacienteId}`, { 
+                  responseType: 'text' 
+                })
+              );
+            } catch (error) {
+              console.error(`Erro ao buscar paciente ${item.pacienteId}:`, error);
+            }
           }
-        }
 
-        return {
-          id: item.id,
-          numeroSequencial: item.numeroSequencial ?? 0,
-          pacienteId: item.pacienteId ?? 0,
-          data: item.dataHoraChegada,
-          status: item.status,
-          paciente: nomePaciente
-        } as Atendimento;
-      })
-    );
+          return {
+            id: item.id,
+            numeroSequencial: item.numeroSequencial ?? 0,
+            pacienteId: item.pacienteId ?? 0,
+            data: item.dataHoraChegada,
+            status: item.status,
+            paciente: nomePaciente
+          } as Atendimento;
+        })
+      );
 
-    this.dataSource = new MatTableDataSource<Atendimento>(atendimentosFormatados);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+      this.dataSource = new MatTableDataSource<Atendimento>(atendimentosFormatados);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
 
-  } catch (error) {
-    console.error('Erro ao carregar atendimentos:', error);
+    } catch (error) {
+      console.error('Erro ao carregar atendimentos:', error);
+    }
   }
-}
-
   
   abrirModal(atendimento: any): void {
+    
     this.dialog.open(ModalTriagem, {
       width: '600px',
-      data: atendimento // Passa os dados do registro selecionado
+      data: atendimento 
     });
-  }
-
-  // Filtro (opcional)
-  aplicarFiltro(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  }  
 }
 
 function formatarData(dataApi: string): string {
