@@ -18,11 +18,11 @@ interface Atendimento {
 
 @Component({
   selector: 'app-atendimentos',
-  templateUrl: './atendimentos.html',
-  styleUrls: ['./atendimentos.css'],
+  templateUrl: './triagem.html',
+  styleUrls: ['./triagem.css'],
   standalone: false,
 })
-export class Atendimentos implements OnInit {
+export class Triagem implements OnInit {
   displayedColumns: string[] = ['id', 'paciente', 'data', 'status'];
   dataSource!: MatTableDataSource<Atendimento>;
 

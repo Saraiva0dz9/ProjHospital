@@ -1,0 +1,51 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Coluna ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Posição </th>
+      <td mat-cell *matCellDef="let atendimentos"> {{ atendimentos.numeroSequencial }} </td>
+    </ng-container>
+
+    <!-- Coluna Paciente -->
+    <ng-container matColumnDef="paciente">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </th>
+      <td mat-cell *matCellDef="let atendimentos"> {{ atendimentos.paciente }} </td>
+    </ng-container>
+
+    <!-- Coluna Data -->
+    <ng-container matColumnDef="data">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+      <td mat-cell *matCellDef="let atendimentos"> {{ atendimentos.data | date:'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <!-- Coluna Especialidade -->
+    <ng-container matColumnDef="especialidade">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Especialidade </th>
+      <td mat-cell *matCellDef="let atendimentos"> {{ atendimentos.especialidade }} </td>
+    </ng-container>
+
+    <!-- Coluna Pressão -->
+    <ng-container matColumnDef="pressaoArterial">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pressão Arterial </th>
+      <td mat-cell *matCellDef="let atendimentos"> {{ atendimentos.pressaoArterial }} </td>
+    </ng-container>
+
+    <!-- Coluna Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let atendimentos">
+        <span [class]="'status-' + atendimentos.status">
+          {{ atendimentos.status }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Header e Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
+    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="abrirModal(row)"></tr>     -->
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div> 

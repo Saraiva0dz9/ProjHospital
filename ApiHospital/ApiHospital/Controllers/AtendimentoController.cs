@@ -23,7 +23,7 @@ public class AtendimentoController : Controller
     {
         try
         {
-            var atendimentos = _context.Atendimentos.ToList();
+            var atendimentos = _context.Atendimentos.OrderBy(x => x.NumeroSequencial).ToList();
         
             return atendimentos;
         }

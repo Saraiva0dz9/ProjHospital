@@ -21,17 +21,19 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Home } from './Components/home/home';
 import { Cadastro } from './Components/cadastro/cadastro';
-import { Atendimentos } from './Components/atendimentos/atendimentos';
+import { Triagem } from './Components/triagem/triagem';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ModalTriagem } from './Modals/modal-triagem/modal-triagem';
+import { Atendimento } from './Components/atendimento/atendimento';
 
 @NgModule({
   declarations: [
     App,    
     Home,
     Cadastro,
-    Atendimentos,
-    ModalTriagem,    
+    Triagem,
+    ModalTriagem,
+    Atendimento,    
   ],
   imports: [
     BrowserModule,
