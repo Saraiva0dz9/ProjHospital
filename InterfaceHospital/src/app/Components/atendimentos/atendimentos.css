@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  padding: 20px;
+  margin: 20px;
+}
+
+.status-pendente {
+  color: orange;
+  font-weight: bold;
+}
+
+.status-concluido {
+  color: green;
+  font-weight: bold;
+}
+
+.status-cancelado {
+  color: red;
+  font-weight: bold;
+}

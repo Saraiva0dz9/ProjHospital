@@ -10,6 +10,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -17,13 +23,15 @@ import { Home } from './Components/home/home';
 import { Cadastro } from './Components/cadastro/cadastro';
 import { Atendimentos } from './Components/atendimentos/atendimentos';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { ModalTriagem } from './Modals/modal-triagem/modal-triagem';
 
 @NgModule({
   declarations: [
     App,    
     Home,
     Cadastro,
-    Atendimentos,    
+    Atendimentos,
+    ModalTriagem,    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,13 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     MatDividerModule,    
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
