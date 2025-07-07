@@ -13,3 +13,8 @@
 .full-width {
   width: 100%;
 }
+
+textarea.mat-input-element {
+  min-height: 80px;
+  resize: vertical;
+}

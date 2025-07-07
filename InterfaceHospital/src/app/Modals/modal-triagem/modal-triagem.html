@@ -16,8 +16,8 @@
         <!-- Pressão Arterial -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Pressão Arterial (mmHg)</mat-label>
-          <input matInput formControlName="pressaoArterial" type="number" step="0.1">
-          <mat-error *ngIf="triagemForm.get('pressaoArterial')?.hasError('required')">
+          <input matInput formControlName="PressaoArterial" type="text">
+          <mat-error *ngIf="triagemForm.get('PressaoArterial')?.hasError('required')">
             Campo obrigatório
           </mat-error>
         </mat-form-field>
@@ -27,8 +27,8 @@
         <!-- Peso -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Peso (kg)</mat-label>
-          <input matInput formControlName="peso" type="number" step="0.1">
-          <mat-error *ngIf="triagemForm.get('peso')?.hasError('required')">
+          <input matInput formControlName="Peso" type="number" step="0.1">
+          <mat-error *ngIf="triagemForm.get('Peso')?.hasError('required')">
             Campo obrigatório
           </mat-error>
         </mat-form-field>
@@ -38,8 +38,8 @@
         <!-- Altura -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Altura (m)</mat-label>
-          <input matInput formControlName="altura" type="number" step="0.01">
-          <mat-error *ngIf="triagemForm.get('altura')?.hasError('required')">
+          <input matInput formControlName="Altura" type="number" step="0.01">
+          <mat-error *ngIf="triagemForm.get('Altura')?.hasError('required')">
             Campo obrigatório
           </mat-error>
         </mat-form-field>
@@ -47,16 +47,32 @@
     </div>
 
     <div class="row">
+        <div class="col-12">
+            <!-- Sintomas -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Sintomas</mat-label>
+                <textarea matInput 
+                          formControlName="Sintomas" 
+                          ows="3"
+                          placeholder="Descreva os sintomas principais"></textarea>
+                <mat-error *ngIf="triagemForm.get('Sintomas')?.hasError('required')">
+                    Descrição dos sintomas é obrigatória
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
       <div class="col-12">
         <!-- Especialidade -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Especialidade</mat-label>
-          <mat-select formControlName="especialidade" required>
+          <mat-select formControlName="EspecialidadeId" required>
             <mat-option *ngFor="let esp of especialidades" [value]="esp.id">
               {{ esp.nome }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="triagemForm.get('especialidade')?.hasError('required')">
+          <mat-error *ngIf="triagemForm.get('EspecialidadeId')?.hasError('required')">
             Selecione uma especialidade
           </mat-error>
         </mat-form-field>

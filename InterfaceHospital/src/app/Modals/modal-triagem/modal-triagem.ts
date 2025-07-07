@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-modal-triagem',
@@ -23,25 +25,48 @@ triagemForm: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
-  ) {
+    private dialogRef: MatDialogRef<ModalTriagem>,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private snackBar: MatSnackBar    
+  ) 
+  {
     this.triagemForm = this.fb.group({
       paciente: [data.paciente || 'Não informado'],
-      pressaoArterial: ['', Validators.required],
-      peso: ['', [Validators.required, Validators.min(0)]],
-      altura: ['', [Validators.required, Validators.min(0)]],
-      especialidade: ['', Validators.required]
+      PressaoArterial: ['', Validators.required],
+      Peso: ['', [Validators.required, Validators.min(0)]],
+      Altura: ['', [Validators.required, Validators.min(0)]],
+      Sintomas: ['', Validators.required],
+      EspecialidadeId: ['', Validators.required]
     });
   }
 
   salvarTriagem() {
+    const API_URL = 'http://localhost:5059/api/Triagem/InsereTriagem';
+
     if (this.triagemForm.valid) {
-      const formData = {
-        ...this.triagemForm.value,
-        atendimentoId: this.data.id
-      };
-      console.log('Dados da triagem:', formData);
-      // Implemente a chamada à API aqui
+      const formData = {        
+        AtendimentoId: this.data.id,
+        Sintomas: this.triagemForm.value.Sintomas,
+        PressaoArterial: this.triagemForm.value.PressaoArterial,
+        Peso: this.triagemForm.value.Peso,
+        Altura: this.triagemForm.value.Altura,
+        EspecialidadeId: this.triagemForm.value.EspecialidadeId,
+      };      
+      
+      this.http.post(API_URL, formData).subscribe({
+        next: () => {
+          this.snackBar.open('Triagem salva com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.triagemForm.reset();
+          this.dialogRef.close({ success: true, data: formData });
+        },
+        error: (erro) => {
+          console.error('Erro ao salvar triagem:', erro);
+          this.snackBar.open('Erro ao salvar triagem. Tente novamente.', 'Fechar');
+        }
+      });      
     }
   }
 }
