@@ -19,6 +19,7 @@ interface Atendimento {
 @Component({
   selector: 'app-atendimentos',
   templateUrl: './atendimentos.html',
+  styleUrls: ['./atendimentos.css'],
   standalone: false,
 })
 export class Atendimentos implements OnInit {

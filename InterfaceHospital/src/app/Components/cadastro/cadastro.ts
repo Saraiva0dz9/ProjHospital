@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-cadastro-paciente',
   templateUrl: './cadastro.html',
+  styleUrls: ['./cadastro.css'],
   standalone: false,
 })
 export class Cadastro implements OnInit {

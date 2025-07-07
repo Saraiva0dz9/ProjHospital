@@ -1,60 +1,66 @@
-<form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Cadastro de Paciente</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <!-- Nome -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" required>
-        <mat-error *ngIf="formulario.get('nome')?.hasError('required')">
-          Nome é obrigatório
-        </mat-error>
-      </mat-form-field>
+<div class="container-cadastro">
+    
+    <div>
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-container">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Cadastro de Paciente</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <!-- Nome -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nome</mat-label>
+                        <input matInput formControlName="nome" required>
+                        <mat-error *ngIf="formulario.get('nome')?.hasError('required')">
+                            Nome é obrigatório
+                        </mat-error>
+                    </mat-form-field>
 
-      <!-- Telefone -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Telefone</mat-label>
-        <input matInput formControlName="telefone" required>
-        <mat-error *ngIf="formulario.get('telefone')?.hasError('required')">
-          Telefone é obrigatório
-        </mat-error>
-      </mat-form-field>
+                    <!-- Telefone -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Telefone</mat-label>
+                        <input matInput formControlName="telefone" required>
+                        <mat-error *ngIf="formulario.get('telefone')?.hasError('required')">
+                            Telefone é obrigatório
+                        </mat-error>
+                    </mat-form-field>
 
-      <!-- Email -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required type="email">
-        <mat-error *ngIf="formulario.get('email')?.errors?.['required']">
-          Email é obrigatório
-        </mat-error>
-        <mat-error *ngIf="formulario.get('email')?.errors?.['email']">
-          Email inválido
-        </mat-error>
-      </mat-form-field>
+                    <!-- Email -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" required type="email">
+                        <mat-error *ngIf="formulario.get('email')?.errors?.['required']">
+                            Email é obrigatório
+                        </mat-error>
+                        <mat-error *ngIf="formulario.get('email')?.errors?.['email']">
+                            Email inválido
+                        </mat-error>
+                    </mat-form-field>
 
-      <!-- Sexo (Dropdown) -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Sexo</mat-label>
-        <mat-select formControlName="sexo" required>
-          <mat-option value="M">Masculino</mat-option>
-          <mat-option value="F">Feminino</mat-option>
-          <mat-option value="O">Outro</mat-option>
-        </mat-select>
-        <mat-error *ngIf="formulario.get('sexo')?.hasError('required')">
-          Sexo é obrigatório
-        </mat-error>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button 
-        mat-raised-button 
-        color="primary" 
-        type="submit"
-        [disabled]="formulario.invalid">
-        Cadastrar
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+                    <!-- Sexo (Dropdown) -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Sexo</mat-label>
+                        <mat-select formControlName="sexo" required>
+                            <mat-option value="M">Masculino</mat-option>
+                            <mat-option value="F">Feminino</mat-option>
+                            <mat-option value="O">Outro</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formulario.get('sexo')?.hasError('required')">
+                            Sexo é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="formulario.invalid">
+                        Cadastrar
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>    
+
+</div>

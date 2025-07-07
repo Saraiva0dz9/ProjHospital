@@ -7,9 +7,15 @@
 mat-card {
   width: 100%;
   max-width: 600px;
+  gap: 30px;
 }
 
 .full-width {
   width: 100%;
   margin-bottom: 15px;
+}
+
+.container-cadastro {
+  display: flex;
+  justify-content: center;
 }
