@@ -1,5 +1,6 @@
 using ApiHospital.Context;
 using ApiHospital.Models;
+using ApiHospital.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiHospital.Controllers;
@@ -10,11 +11,13 @@ public class TriagemController : Controller
 {
     private readonly TriagemContext  _triagemContext;
     private readonly ILogger<TriagemController> _logger;
+    private readonly AtendimentoService _atendimentoService;
     
-    public TriagemController(TriagemContext triagemContext, ILogger<TriagemController> logger)
+    public TriagemController(TriagemContext triagemContext, ILogger<TriagemController> logger, AtendimentoService atendimentoService)
     {
         this._triagemContext = triagemContext;
         this._logger = logger;
+        this._atendimentoService = atendimentoService;
     }
     
     [HttpGet("GetTriagems")]
@@ -40,6 +43,9 @@ public class TriagemController : Controller
         {
             _triagemContext.Triagem.Add(triagem);
             _triagemContext.SaveChanges();
+            
+            // Atualiza o status do atendimento para "Em Triagem"
+            this._atendimentoService.AtualizaStatusAtendimento(triagem.AtendimentoId, "Em Triagem");
 
             return Ok(triagem);
         }

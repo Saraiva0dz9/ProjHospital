@@ -1,5 +1,6 @@
 using ApiHospital.Context;
 using ApiHospital.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Services;
 
@@ -16,24 +17,49 @@ public class AtendimentoService
     
     public void InsereAtendimento(Atendimento atendimento)
     {
+        // Cria uma transação com nível de isolamento serializable
+        using var transaction = _atendimentoContext.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+    
         try
         {
-            // Pega a data atual (sem hora)
             DateTime hoje = DateTime.Today;
-    
-            // Verifica quantos atendimentos já existem hoje
-            int atendimentosHoje = _atendimentoContext.Atendimentos
-                .Count(a => a.DataHoraChegada.Date == hoje);
-    
-            // Define o próximo número sequencial (começando em 1)
-            atendimento.NumeroSequencial = atendimentosHoje + 1;
-            
+
+            // Consulta dentro da transação para garantir consistência
+            int ultimoNumero = _atendimentoContext.Atendimentos
+                .Where(a => a.DataHoraChegada.Date == hoje)
+                .Max(a => (int?)a.NumeroSequencial) ?? 0;
+
+            atendimento.NumeroSequencial = ultimoNumero + 1;
+            atendimento.DataHoraChegada = DateTime.Now; // Garante a hora exata
+
             _atendimentoContext.Atendimentos.Add(atendimento);
+            _atendimentoContext.SaveChanges();
+            transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            transaction.Rollback();
+            _logger.LogError(ex, "Falha ao inserir atendimento");
+            throw new ApplicationException("Erro ao cadastrar atendimento. Tente novamente.", ex);
+        }
+    }
+    
+    public void AtualizaStatusAtendimento(int id, string status)
+    {
+        try
+        {
+            var atendimento = _atendimentoContext.Atendimentos.FirstOrDefault(a => a.ID == id);
+            if (atendimento == null)
+            {
+                throw new Exception("Atendimento não encontrado.");
+            }
+            
+            atendimento.Status = status;
             _atendimentoContext.SaveChanges();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "AtendimentoController.InsereAtendimento");
+            _logger.LogError(ex, "AtendimentoController.AtualizaStatusAtendimento");
             throw;
         }
     }
