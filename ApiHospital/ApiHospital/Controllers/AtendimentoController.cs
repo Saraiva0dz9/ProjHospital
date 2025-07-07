@@ -34,27 +34,26 @@ public class AtendimentoController : Controller
         }
     }
     
-    [HttpPost("UpdateAtendimento")] 
-    public IActionResult UpdateAtendimento(Atendimento atendimento)
+    [HttpPut("FinalizaAtendimento/{id}")] 
+    public IActionResult FinalizaAtendimento(int id)
     {
         try
         {
-            var existingAtendimento = _context.Atendimentos.FirstOrDefault(a => a.ID == atendimento.ID);
-            if (existingAtendimento == null)
+            var atendimento = _context.Atendimentos.FirstOrDefault(a => a.ID == id);
+            if (atendimento == null)
             {
                 return NotFound("Atendimento não encontrado.");
             }
             
-            existingAtendimento.Status = atendimento.Status;
-
+            atendimento.Status = "Finalizado";
             _context.SaveChanges();
 
-            return Ok(existingAtendimento);
+            return Ok(atendimento);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "AtendimentoController.UpdateAtendimento");
-            return StatusCode(500, "Erro ao atualizar atendimento.");
+            _logger.LogError(ex, "AtendimentoController.FinalizaAtendimento");
+            return StatusCode(500, "Erro ao finalizar atendimento.");
         }
-    }
+    } 
 }
