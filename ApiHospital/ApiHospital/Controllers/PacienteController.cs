@@ -76,4 +76,24 @@ public class PacienteController : Controller
             return StatusCode(500, "Erro ao inserir paciente.");
         }
     }
+    
+    [HttpGet("GetNomeById/{id}")]
+    public ActionResult<string> GetNomeById(int id) 
+    {
+        try
+        {
+            var paciente = _context.Pacientes.FirstOrDefault(p => p.ID == id);
+            if (paciente == null)
+            {
+                return NotFound("Paciente não encontrado.");
+            }
+            
+            return Ok(paciente.Nome);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "PacienteController.GetNomeById");
+            return StatusCode(500, "Erro ao buscar nome do paciente.");
+        }
+    }
 }
