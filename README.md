@@ -1,6 +1,4 @@
-# ProjHospital
-
-============================================ Links ==========================================
+Links:
 
 - Vídeo explicativo : https://drive.google.com/file/d/1i4EO6Y9amOkOF6cLdZ2zMjMo7dsnX3Js/view?usp=sharing
 
